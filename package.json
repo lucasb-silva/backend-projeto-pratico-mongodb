@@ -1,0 +1,20 @@
+{
+  "name": "backend-projeto-pratico-mongodb",
+  "version": "1.0.0",
+  "description": "- Configuração Inicial:    - Inicialize um novo projeto NodeJS.    - Instale o ExpressJS e o MongoDB Driver.    - Configure o Nodemon para reiniciar o servidor automaticamente.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node .",
+    "dev": "nodemon ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.8.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
