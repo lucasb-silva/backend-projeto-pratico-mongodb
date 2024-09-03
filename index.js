@@ -27,10 +27,10 @@ async function main() {
         // Acessamos o body da requisição
         const newItem = req.body
 
-        // Checamos se `livro` está presente na requisição
-        // if (!newItem || (!newItem.titulo && !newItem.autor && !newItem.anoPublicacao)) {
-        //     return res.status(400).send('Corpo da requisição deve conter a propriedade `titulo`.')
-        // }
+        // Checamos se `titulo` está presente na requisição
+        if (!newItem || !newItem.titulo) {
+            return res.status(400).send('Corpo da requisição deve conter a propriedade `titulo`.')
+        }
 
         // Adicionamos na collection
         await collection.insertOne(newItem)
@@ -65,6 +65,11 @@ async function main() {
         // Acessamos o id e body da requisição
         const id = req.params.id
         const newItem = req.body
+
+        // Checamos se `titulo` está presente na requisição
+        if (!newItem || !newItem.titulo) {
+            return res.status(400).send('Corpo da requisição deve conter a propriedade `titulo`.')
+        }
 
         // Atualizamos na collection o novoItem pelo ID
         await collection.updateOne(
