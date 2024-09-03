@@ -1,6 +1,8 @@
 const express = require('express')
 const { MongoClient, Collection, ObjectId } = require('mongodb')
 
+const dbUser = 'lucasbeserrasilva18'
+const dbPassword = '051Q7uODoTFUC886'
 
 const dbUrl = 'mongodb+srv://' + dbUser + ':' + dbPassword + '@cluster0.zaxp3ht.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const dbName = 'biblioteca'
@@ -72,6 +74,17 @@ async function main() {
 
         // Enviamos o resultado da requisição
         res.send(newItem)
+    })
+
+    app.delete('/livros/:id', async function (req, res) {
+        // Acessamos o id da requisição
+        const id = req.params.id
+
+        // Deletamos o item da collection
+        await collection.deleteOne({ _id: new ObjectId(id) })
+
+        // Enviamos uma mensagem de sucesso
+        res.send('Item removido com sucesso: ' + id)
     })
 
     app.listen(3000)
