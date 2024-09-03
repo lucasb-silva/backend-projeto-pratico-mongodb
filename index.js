@@ -1,6 +1,7 @@
 const express = require('express')
 const { MongoClient, Collection, ObjectId } = require('mongodb')
 
+
 const dbUrl = 'mongodb+srv://' + dbUser + ':' + dbPassword + '@cluster0.zaxp3ht.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const dbName = 'biblioteca'
 
@@ -56,7 +57,22 @@ async function main() {
 
         // Enviamos o item procurado
         res.send(item)
-    })    
+    })
+
+    app.put('/livros/:id', async function (req, res) {
+        // Acessamos o id e body da requisição
+        const id = req.params.id
+        const newItem = req.body
+
+        // Atualizamos na collection o novoItem pelo ID
+        await collection.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: newItem }
+        )
+
+        // Enviamos o resultado da requisição
+        res.send(newItem)
+    })
 
     app.listen(3000)
 
