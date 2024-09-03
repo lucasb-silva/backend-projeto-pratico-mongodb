@@ -1,6 +1,5 @@
 const express = require('express')
-const { MongoClient, Collection } = require('mongodb')
-
+const { MongoClient, Collection, ObjectId } = require('mongodb')
 
 const dbUrl = 'mongodb+srv://' + dbUser + ':' + dbPassword + '@cluster0.zaxp3ht.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'
 const dbName = 'biblioteca'
@@ -35,7 +34,29 @@ async function main() {
 
         res.status(201).send(newItem)
     })
-    
+
+    app.get('/livros', async function (req, res) {
+        // Acessamos a lista de itens no collection do MongoDB
+        const itens = await collection.find().toArray()
+
+        // Enviamos a lista de itens como resultado
+        res.send(itens)
+    })
+
+    app.get('/livros/:id', async function (req, res) {
+        // Acessamos o id da requisição
+        const id = req.params.id
+
+        const item = await collection.findOne({ _id: new ObjectId(id) })
+
+        // Checamos se o item existe
+        if (!item) {
+            return res.status(404).send('Livro não encontrado')
+        }
+
+        // Enviamos o item procurado
+        res.send(item)
+    })    
 
     app.listen(3000)
 
